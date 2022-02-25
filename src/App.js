@@ -1,24 +1,94 @@
-import logo from './logo.svg';
-import './App.css';
+import UserContext from './UserContext';
+import AppRoutes from './Routes';
+import Nav from './Nav';
+import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import FishFileApi from './Api';
+import jwt from 'jsonwebtoken';
 
 function App() {
+  const [currentUser, setCurrentUser] = useState();
+  const [token, setToken] = useState(
+    localStorage.getItem("fishfile-token") || null
+  );
+  const [isLoading, setIsloading] = useState(false);
+
+  const navigate = useNavigate();
+
+  useEffect(
+    function setLocalStorageToken() {
+      if (token === null) {
+        localStorage.removeItem("fishfile-token");
+      } else {
+        localStorage.setItem("fishfile-token", token);
+      }
+    },
+    [token]
+  );
+
+  /**updates currentuser if valid token */
+  useEffect(
+    function getCurrUser() {
+      async function getCurrUserResponse() {
+        if (token !== null) {
+          FishFileApi.token = token;
+          const { username } = jwt.decode(token);
+          let user = await FishFileApi.getUserInfo(username);
+          setCurrentUser(user);
+        }
+        setIsloading(true);
+      }
+      getCurrUserResponse();
+    },
+    [token]
+  );
+
+  async function login(loginUserInfo) {
+    const response = await FishFileApi.login(loginUserInfo);
+    console.log("INSIDE APP AT LOGIN", response)
+    setToken(response);
+    navigate('/');
+  }
+
+  async function signup(userInfo) {
+    const newToken = await FishFileApi.register(userInfo);
+
+    if (newToken) {
+      setToken(newToken);
+      navigate('/');
+    }
+  }
+
+  async function updateProfile(profileInfo) {
+    const user = await FishFileApi.updateProfile(profileInfo);
+    setCurrentUser(user);
+  }
+
+  function logout() {
+    setCurrentUser(null);
+    setToken(null);
+    localStorage.removeItem("fishfile-token");
+  }
+
+  // TODO: make loading spinner component
+  if (!isLoading) return <p>Fetching User</p>;
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <UserContext.Provider
+      value={{
+        currentUser,
+        login,
+        signup,
+        logout,
+        updateProfile,
+        // addLocation,
+        // addRecord
+      }}>
+      <div className="App">
+        <Nav />
+        <AppRoutes />
+      </div>
+    </UserContext.Provider>
   );
 }
 
