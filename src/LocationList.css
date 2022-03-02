@@ -1,0 +1,4 @@
+.LocationList {
+  display: flex;
+  flex-wrap: wrap;
+}
