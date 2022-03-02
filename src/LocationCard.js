@@ -30,7 +30,7 @@ function LocationCard({ location }) {
         const decLong = String(location.decLong);
         const coords = { decLat, decLong };
         const weather = await FishFileApi.getWeather(location.id, location.username, coords);
-        console.log("THIS IS THE WEATHER OBJECT IN REACT APP:", weather)
+        console.log("THIS IS THE WEATHER OBJECT IN REACT APP: ", weather);
 
         setCurrWeather(weather);
       }
