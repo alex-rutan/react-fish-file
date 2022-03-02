@@ -2,10 +2,13 @@ import { useContext } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import UserContext from "./UserContext";
 import HomePage from "./HomePage";
-import LocationsList from "./LocationsList";
+import LocationList from "./LocationList";
 import LocationDetails from "./LocationDetails";
 import SignUpForm from "./SignUpForm";
 import LoginForm from "./LoginForm";
+import AddLocationForm from "./AddLocationForm";
+import AddRecordForm from "./AddRecordForm";
+
 
 function AppRoutes() {
   const { currentUser } = useContext(UserContext);
@@ -14,9 +17,10 @@ function AppRoutes() {
     <div className="AppRoutes">
       {currentUser ?
         <Routes>
-          <Route path="/locations" element={<LocationsList />}/>
+          <Route path="/locations" element={<LocationList />}/>
           <Route path="/locations/:location_id" element={<LocationDetails />} />
-          {/* <Route path="/records" element={<RecordsList />} />
+          <Route path="/locations/new" element={<AddLocationForm />} />
+          {/* <Route path="/records" element={<RecordList />} />
           <Route path="/records/:record_id" element={<RecordDetails />} />
           <Route path="/profile" element={<EditProfileForm />} /> */}
           <Route path="/" element={<HomePage />} />

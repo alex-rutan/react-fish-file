@@ -1,6 +1,8 @@
 import axios from "axios";
 import jwt from "jsonwebtoken";
+
 const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:3001";
+
 
 /** API Class.
  *
@@ -31,47 +33,65 @@ class FishFileApi {
 
   // Individual API routes
 
+  /** Get weather for a location */
+  static async getWeather(id, username, coordinates) {
+    const res = await this.request(`users/${username}/locations/${id}/weather`, coordinates);
+    return res.weather;
+  }
+
   /** Get location data by unique id. */
-  static async getLocation(id) {
-    let res = await this.request(`locations/${id}`);
+  static async getLocation(id, username) {
+    const res = await this.request(`users/${username}/locations/${id}`);
     return res.location;
   }
 
+  /** Get all locations data. */
+  static async getAllLocations(username) {
+    const res = await this.request(`users/${username}/locations`);
+    return res.locations;
+  }
+
   /** Add location to user's locations */
-  static async addLocation(id) {
-    let res = await this.request('locations', id, "post");
+  static async addLocation(locationData, username) {
+    const res = await this.request(`users/${username}/locations`, locationData, "post");
     return res.location;
   }
 
   /** Get record data by id. */
   static async getRecord(id) {
-    let res = await this.request(`records/${id}`);
+    const res = await this.request(`records/${id}`);
     return res.record;
   }
 
+  /** Get all records data. */
+  static async getAllRecord(id) {
+    const res = await this.request(`records`);
+    return res.records;
+  }
+
   /** Add record to user's records */
-  static async addRecord(id) {
-    let res = await this.request('records', id, "post");
+  static async addRecord(recordData) {
+    const res = await this.request(`records`, recordData, "post");
     return res.record;
   }
 
   /** Logs in a user, returns token. */
   static async login(loginUserData) {
-    const res = await this.request("auth/token", loginUserData, "post");
+    const res = await this.request(`auth/token`, loginUserData, "post");
     console.log("INSIDE API LOGIN: ", res, "--------", res.token)
     return res.token;
   }
 
   /** Register a user, returns token. */
   static async register(userData) {
-    const res = await this.request("auth/register", userData, "post");
+    const res = await this.request(`auth/register`, userData, "post");
     console.log("INSIDE API REGISTER: ", res, "--------", res.token)
     return res.token;
   }
 
   /** Get user data by username. */
   static async getUserInfo(username) {
-    const res = await this.request(`users/${username}`, username);
+    const res = await this.request(`users/${username}`);
     return res.user;
   }
 
@@ -79,14 +99,8 @@ class FishFileApi {
   static async updateProfile(profileInfo) {
     const { username } = jwt.decode(this.token)
     const res = await this.request(`users/${username}`, profileInfo, "patch")
-    return res.user
+    return res.user;
   }
 }
-
-// for now, put token ("testuser" / "password" on class)
-FishFileApi.token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZ" +
-  "SI6InRlc3R1c2VyIiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTU5ODE1OTI1OX0." +
-  "FtrMwBQwe6Ue-glIFgz_Nf8XxRT2YecFCiSpYL0fCXc";
 
 export default FishFileApi;

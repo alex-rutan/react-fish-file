@@ -5,14 +5,15 @@ import { useNavigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import FishFileApi from './Api';
 import jwt from 'jsonwebtoken';
+import UsgsApi from './UsgsApi';
+
 
 function App() {
-  const [currentUser, setCurrentUser] = useState();
-  const [token, setToken] = useState(
+  const [ currentUser, setCurrentUser ] = useState();
+  const [ token, setToken ] = useState(
     localStorage.getItem("fishfile-token") || null
   );
-  const [isLoading, setIsloading] = useState(false);
-
+  const [ isLoading, setIsloading ] = useState(false);
   const navigate = useNavigate();
 
   useEffect(
@@ -70,6 +71,17 @@ function App() {
     localStorage.removeItem("fishfile-token");
   }
 
+  async function addLocation(locationData) {
+    const usgsId = locationData.usgsId;
+    const { decLat, decLong } = await UsgsApi.getLocationLatAndLong(usgsId);
+
+    locationData.decLat = decLat;
+    locationData.decLong = decLong;
+    
+    console.log("DATA************: ", locationData);
+    const location = await FishFileApi.addLocation(locationData, currentUser.username);
+  }
+
   // TODO: make loading spinner component
   if (!isLoading) return <p>Fetching User</p>;
 
@@ -81,7 +93,7 @@ function App() {
         signup,
         logout,
         updateProfile,
-        // addLocation,
+        addLocation,
         // addRecord
       }}>
       <div className="App">
