@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import UserContext from "./UserContext";
 import Alert from "./Alert";
-// import "./AddLocationForm.css"
+import "./AddLocationForm.css"
 
 
 /** AddLocationForm: Add Location page presents form that takes in all
@@ -44,61 +44,67 @@ function AddLocationForm() {
 
   return (
     <div className="AddLocationForm">
-      <div className="AddLocationForm-body">
-        <div className="AddLocationForm-form card mx-auto">
-          <form className="AddLocation-page" onSubmit={handleSubmit}>
-            <div className="form-group">
-              <legend className="form-title">Add Location</legend>
-              <div className="form-floating mb-3">
-                <input
-                  id="floatingName"
-                  name="name"
-                  type="name"
-                  className="form-control"
-                  placeholder="name"
-                  onChange={handleChange}
-                  value={formData.name}
-                  required
-                />
-                <label htmlFor="floatingName">Location Name</label>
+      <div className="card location-form-card">
+        <form className="location-form" onSubmit={handleSubmit}>
+            <legend className="form-title m-2">Add Location</legend>
+            <div className="form-floating mb-4">
+              <input
+                id="floatingName"
+                name="name"
+                type="name"
+                className="form-control"
+                placeholder="name"
+                onChange={handleChange}
+                value={formData.name}
+                aria-describedby="nameHelpBlock"
+                required
+              />
+              <div id="nameHelpBlock" class="form-text m-2">
+                Provide a name of your choosing for the location.
               </div>
-              <div className="form-floating mb-3">
-                <input
-                  id="floatingUsgsId"
-                  name="usgsId"
-                  type="usgsId"
-                  className="form-control"
-                  placeholder="usgsId"
-                  onChange={handleChange}
-                  value={formData.usgsId}
-                  required
-                />
-                <label htmlFor="floatingUsgsId">USGS Location Id</label>
-              </div>
-              <div className="form-floating mb-3">
-                <input
-                  id="floatingFish"
-                  name="fish"
-                  className="form-control"
-                  placeholder="Fish Species"
-                  onChange={handleChange}
-                  value={formData.fish}
-                  required
-                />
-                <label htmlFor="floatingFish">Fish Species</label>
-              </div>
+              <label className="form-label" htmlFor="floatingName">Location Name</label>
             </div>
-            <button className="btn btn-primary me-2">Add Location</button>
-          </form>
-          {formError !== null ?
-            <Alert
-              className="alert"
-              type="danger"
-              messages={formError} />
-            :
-            null
-          }
-        </div>
+            <div className="form-floating mb-4">
+              <input
+                id="floatingUsgsId"
+                name="usgsId"
+                type="usgsId"
+                className="form-control"
+                placeholder="usgsId"
+                onChange={handleChange}
+                value={formData.usgsId}
+                aria-describedby="usgsIdHelpBlock"
+              />
+              <div id="passwordHelpBlock" class="form-text m-2">
+              Provide a USGS Station Number if you'd like to access current and historical flow data for your location. Visit https://waterdata.usgs.gov/STATE_ABBR_HERE/nwis/current/?type=flow with the state abbreviation included to view river flow gauge sites and find the appropriate USGS Station Number.
+              </div>
+              <label htmlFor="floatingUsgsId">USGS Station Number</label>
+            </div>
+            <div className="form-floating mb-3">
+              <input
+                id="floatingFish"
+                name="fish"
+                className="form-control"
+                placeholder="Fish Species"
+                onChange={handleChange}
+                value={formData.fish}
+                aria-describedby="fishHelpBlock"
+              />
+              <div id="fishHelpBlock" class="form-text m-2">
+                Provide a list of fish species for the location. Please separate fish species with a comma and space like so: Rainbow Trout, Brown Trout, Smallmouth Bass
+              </div>
+              <label htmlFor="floatingFish">Fish Species</label>
+          </div>
+          <button type="submit" className="btn btn-primary m-2">Add Location</button>
+        </form>
+        {formError !== null ?
+          <Alert
+            className="alert"
+            type="danger"
+            messages={formError} />
+          :
+          null
+        }
       </div>
     </div>
   );

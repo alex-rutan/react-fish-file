@@ -1,12 +1,12 @@
-.card {
-  margin: 1em .5em;
-  min-height: 17em;
+.location-card {
+  margin: 1em;
   color: #000000;
   text-decoration: none;
-  border: 3px solid black;
-  border-radius: .5em;
-  /* box-shadow: 1px 1px 10px rgb(190, 190, 190); */
-  display: inline-block; 
-  align-items: center;
-  padding: 0px;
+  box-shadow: 1px 1px 10px rgb(228, 228, 228);
+}
+
+.location-card-list-group li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
