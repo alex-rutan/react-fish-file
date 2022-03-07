@@ -32,6 +32,9 @@
 // THIS FILE OR THE WHOLE react-app-rewired stuff
 
 
+// UPDATE (3/7/22): installed jquery and suddenly was getting error saying process is undefined again... yikes. tried a bunch of stuff - even tried using react-scripts instead of react-app-rewired for npm start, but ultimately, adding a new webpack.DefinePlugin below worked.. ********** Well it worked until I deleted and reinstalled node packages and package-lock.json, now its happening again...
+
+
 
 const webpack = require('webpack');
 module.exports = function override(config, env) {
@@ -44,13 +47,16 @@ module.exports = function override(config, env) {
     // os: require.resolve('os-browserify/browser'),
     // process: require.resolve('process'),
     buffer: require.resolve('buffer'),
-    stream: require.resolve('stream'),
+    stream: require.resolve('stream')
   };
   config.plugins.push(
     new webpack.ProvidePlugin({
-      // process: 'process',
+      process: 'process/browser',
       Buffer: ['buffer', 'Buffer'],
     }),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify('development')
+    })
   );
 
   return config;
