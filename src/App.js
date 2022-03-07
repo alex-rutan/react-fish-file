@@ -60,17 +60,17 @@ function App() {
     }
   }
 
-  async function updateProfile(profileInfo) {
-    const user = await FishFileApi.updateProfile(profileInfo);
-    setCurrentUser(user);
-  }
-
   function logout() {
     setCurrentUser(null);
     setToken(null);
     localStorage.removeItem("fishfile-token");
   }
 
+  async function updateProfile(profileInfo) {
+    const user = await FishFileApi.updateProfile(profileInfo);
+    setCurrentUser(user);
+  }
+  
   async function addLocation(locationData) {
     const usgsId = locationData.usgsId;
     const { decLat, decLong } = await UsgsApi.getLocationLatAndLong(usgsId);
@@ -78,8 +78,24 @@ function App() {
     locationData.decLat = decLat;
     locationData.decLong = decLong;
     
-    console.log("DATA************: ", locationData);
+    console.log("LOCATION DATA************: ", locationData);
     const location = await FishFileApi.addLocation(locationData, currentUser.username);
+  }
+
+  async function getAllLocations(username) {
+    const locations = await FishFileApi.getAllLocations(username);
+    return locations;
+  }
+
+  async function addRecord(recordData) {
+    const location = await FishFileApi.getLocation(recordData.locationId);
+    const usgsId = location.usgsId;
+
+    const pastFlow = await UsgsApi.getPastFlow(usgsId, recordData.date);
+    recordData.flow = pastFlow;
+
+    console.log("RECORD DATA************: ", recordData);
+    const record = await FishFileApi.addRecord(recordData, currentUser.username);
   }
 
   // TODO: make loading spinner component
@@ -94,7 +110,8 @@ function App() {
         logout,
         updateProfile,
         addLocation,
-        // addRecord
+        getAllLocations,
+        addRecord
       }}>
       <div className="App">
         <Nav />

@@ -21,8 +21,9 @@ function AppRoutes() {
           <Route path="/locations/:location_id" element={<LocationDetails />} />
           <Route path="/locations/new" element={<AddLocationForm />} />
           {/* <Route path="/records" element={<RecordList />} />
-          <Route path="/records/:record_id" element={<RecordDetails />} />
-          <Route path="/profile" element={<EditProfileForm />} /> */}
+          <Route path="/records/:record_id" element={<RecordDetails />} /> */}
+          <Route path="/records/new" element={<AddRecordForm />} />
+          {/* <Route path="/profile" element={<EditProfileForm />} /> */}
           <Route path="/" element={<HomePage />} />
           <Route element={<Navigate replace to="/" />} />
         </Routes>

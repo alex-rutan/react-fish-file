@@ -1,0 +1,16 @@
+.AddRecordForm {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.record-form-card {
+  width: 60%;
+  margin: 3em;
+  box-shadow: 1px 1px 10px rgb(228, 228, 228);
+  border-radius: .5em;
+}
+
+.record-form {
+  margin: 2.5em 3em;
+}

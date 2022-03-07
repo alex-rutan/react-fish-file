@@ -32,7 +32,7 @@ function AddLocationForm() {
     }));
   }
 
-  // Sends search back to parent component
+  // Sends addLocation call back to parent component
   async function handleSubmit(evt) {
     evt.preventDefault();
     try {
@@ -53,13 +53,13 @@ function AddLocationForm() {
                 name="name"
                 type="name"
                 className="form-control"
-                placeholder="name"
+                // placeholder="Location Name"
                 onChange={handleChange}
                 value={formData.name}
                 aria-describedby="nameHelpBlock"
                 required
               />
-              <div id="nameHelpBlock" class="form-text m-2">
+              <div id="nameHelpBlock" className="form-text m-2">
                 Provide a name of your choosing for the location.
               </div>
               <label className="form-label" htmlFor="floatingName">Location Name</label>
@@ -70,12 +70,12 @@ function AddLocationForm() {
                 name="usgsId"
                 type="usgsId"
                 className="form-control"
-                placeholder="usgsId"
+                // placeholder="USGS Station Number"
                 onChange={handleChange}
                 value={formData.usgsId}
                 aria-describedby="usgsIdHelpBlock"
               />
-              <div id="passwordHelpBlock" class="form-text m-2">
+              <div id="passwordHelpBlock" className="form-text m-2">
               Provide a USGS Station Number if you'd like to access current and historical flow data for your location. Visit https://waterdata.usgs.gov/STATE_ABBR_HERE/nwis/current/?type=flow with the state abbreviation included to view river flow gauge sites and find the appropriate USGS Station Number.
               </div>
               <label htmlFor="floatingUsgsId">USGS Station Number</label>
@@ -85,13 +85,13 @@ function AddLocationForm() {
                 id="floatingFish"
                 name="fish"
                 className="form-control"
-                placeholder="Fish Species"
+                // placeholder="Fish Species"
                 onChange={handleChange}
                 value={formData.fish}
                 aria-describedby="fishHelpBlock"
               />
-              <div id="fishHelpBlock" class="form-text m-2">
-                Provide a list of fish species for the location. Please separate fish species with a comma and space like so: Rainbow Trout, Brown Trout, Smallmouth Bass
+              <div id="fishHelpBlock" className="form-text m-2">
+                Provide a list of fish species for the location. You must separate fish species with a comma and space like so: Rainbow Trout, Brown Trout, Smallmouth Bass
               </div>
               <label htmlFor="floatingFish">Fish Species</label>
           </div>

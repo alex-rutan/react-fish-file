@@ -1,40 +1,59 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import UserContext from "./UserContext";
 import Alert from "./Alert";
-// import "./AddRecordForm.css"
-
+import "./AddRecordForm.css"
+import WeatherTypeArr from "./WeatherTypeArray";
 
 /** AddRecordForm: Add Record page that presents form that takes in all
- *  needed information to create a new user instance in our database.
+ *  needed information to create a new record instance in our database.
  *
  *  State: AddRecordInfo, formError
  *  Context: AddRecord
  */
 
 function AddRecordForm() {
-  const { AddRecord } = useContext(UserContext);
+  const { currentUser, AddRecord, getAllLocations } = useContext(UserContext);
+  const [ locations, setLocations ] = useState([]);
   const [ formError, setFormError ] = useState(null);
-  const [ AddRecordInfo, setAddRecordInfo ] = useState({
-    username: "",
-    password: "",
-    firstName: "",
-    lastName: "",
-    email: ""
+  const [ formData, setFormData ] = useState({
+    username: currentUser.username,
+    locationId: "",
+    date: "",
+    rating: "",
+    description: "",
+    flies: "",
+    waterTemp: "",
+    pressure: "",
+    weather: "",
+    highTemp: "",
+    lowTemp: ""
   });
+
+  useEffect(
+    function getLocations() {
+      async function getLocationsResponse() {
+        const allLocations = await getAllLocations(currentUser.username);
+
+        setLocations(allLocations);
+      }
+      getLocationsResponse();
+    },
+    [currentUser.username, getAllLocations]
+  )
 
   function handleChange(evt) {
     const { name, value } = evt.target;
-    setAddRecordInfo((AddRecordData) => ({
-      ...AddRecordData,
+    setFormData((fData) => ({
+      ...fData,
       [name]: value,
     }));
   }
 
-  // Sends search back to parent component
+  // Sends addRecord call back to parent component
   async function handleSubmit(evt) {
     evt.preventDefault();
     try {
-      await AddRecord(AddRecordInfo);
+      await AddRecord(formData);
     } catch (err) {
       setFormError(err);
     }
@@ -42,86 +61,179 @@ function AddRecordForm() {
 
   return (
     <div className="AddRecordForm">
-      <div className="AddRecordForm-body">
-        <div className="AddRecordForm-form card mx-auto">
-          <form className="AddRecord-page" onSubmit={handleSubmit}>
-            <div className="form-group">
-              <legend className="form-title">Sign Up</legend>
-              <div className="form-floating mb-3">
-                <input
-                  id="floatingUsername"
-                  name="username"
-                  type="username"
-                  className="form-control"
-                  placeholder="Username"
+      <div className="card record-form-card">
+        <form className="record-form" onSubmit={handleSubmit}>
+          <legend className="form-title m-2">Add Record</legend> 
+          <div className="row mb-4">
+            <div className="col-7">
+              <div className="form-floating">
+                <select
+                  id="floatingLocation"
+                  name="locationId"
+                  type="select"
+                  className="form-select form-control"
                   onChange={handleChange}
-                  value={AddRecordInfo.username}
+                  value={formData.location}
                   required
-                />
-                <label htmlFor="floatingUsername">Username</label>
-              </div>
-              <div className="form-floating mb-3">
-                <input
-                  id="floatingPassword"
-                  name="password"
-                  type="password"
-                  className="form-control"
-                  placeholder="Password"
-                  onChange={handleChange}
-                  value={AddRecordInfo.password}
-                  required
-                />
-                <label htmlFor="floatingPassword">Password</label>
-              </div>
-              <div className="form-floating mb-3">
-                <input
-                  id="floatingFirstName"
-                  name="firstName"
-                  className="form-control"
-                  placeholder="First Name"
-                  onChange={handleChange}
-                  value={AddRecordInfo.firstName}
-                  required
-                />
-                <label htmlFor="floatingFirstName">First Name</label>
-              </div>
-              <div className="form-floating mb-3">
-                <input
-                  id="floatingLastName"
-                  name="lastName"
-                  className="form-control"
-                  placeholder="Last Name"
-                  onChange={handleChange}
-                  value={AddRecordInfo.lastName}
-                  required
-                />
-                <label htmlFor="floatingLastName">Last Name</label>
-              </div>
-              <div className="form-floating mb-3">
-                <input
-                  id="floatingEmail"
-                  name="email"
-                  type="email"
-                  className="form-control"
-                  placeholder="Email"
-                  onChange={handleChange}
-                  value={AddRecordInfo.email}
-                  required
-                />
-                <label htmlFor="floatingEmail">Email</label>
+                >
+                  <option value={null}></option>
+                  {locations.map(location => (
+                    <option key={location.id} value={location.id}>{location.name}</option>
+                  ))}
+                </select>
+                <label className="form-floating-label" htmlFor="floatingLocation">Location</label>
               </div>
             </div>
-            <button className="btn btn-primary me-2">Sign Up</button>
-          </form>
-          {formError !== null ?
-            <Alert
-              className="alert"
-              type="danger"
-              messages={formError} />
-            :
-            null
-          }
-        </div>
+            <div className="col-3">
+              <div className="form-floating">
+                <input
+                  id="floatingDate"
+                  name="date"
+                  type="date"
+                  className="form-control"
+                  placeholder="date"
+                  onChange={handleChange}
+                  value={formData.date}
+                  required
+                />
+                <label htmlFor="floatingDate">Date</label>
+              </div>
+            </div>
+            <div className="col-2">
+              <div className="form-floating">
+                <select
+                  id="floatingRating"
+                  name="rating"
+                  type="select"
+                  className="form-select form-control"
+                  onChange={handleChange}
+                  value={formData.rating}
+                >
+                  <option value={null}></option>
+                  {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num, index) => (
+                    <option key={index} value={num}>{num}</option>
+                  ))}
+                </select>
+                <label className="form-floating-label" htmlFor="floatingRating">Rating</label>
+              </div>
+            </div>
+          </div>
+
+          <div className="form-floating mb-4">
+            <textarea 
+              id="floatingDescription"
+              name="description"
+              className="form-control"
+              // placeholder="description"
+              onChange={handleChange}
+              value={formData.description} 
+              style={{height: "100px"}}>
+            </textarea>
+            <label htmlFor="floatingDescription" className="form-label">Description</label>
+          </div>             
+
+          <div className="form-floating mb-4">
+            <input
+              id="floatingFlies"
+              name="flies"
+              className="form-control"
+              // placeholder="Flies"
+              onChange={handleChange}
+              value={formData.flies}
+              aria-describedby="fliesHelpBlock"
+            />
+            <div id="fliesHelpBlock" className="form-text m-2">
+              List flies that worked well for the day. You must separate flies with a comma and space like so: Sculpzilla, Olive WD-40, Parachute Adams
+            </div>
+            <label htmlFor="floatingFlies">Flies</label>
+          </div>
+
+          <div className="row mb-3">
+            <div className="col-3">
+              <div className="form-floating">
+                <input
+                  id="floatingWaterTemp"
+                  name="waterTemp"
+                  className="form-control"
+                  // placeholder="Water Temperature"
+                  onChange={handleChange}
+                  value={formData.waterTemp}
+                />
+                <label htmlFor="floatingWaterTemp">Water Temp (°F)</label>
+              </div>
+            </div>
+            <div className="col-6">
+              <div className="form-floating">
+                <select
+                  id="floatingWeather"
+                  name="weather"
+                  type="select"
+                  className="form-select form-control"
+                  onChange={handleChange}
+                  value={formData.weather}
+                  required
+                >
+                  <option value={null}></option>
+                  {WeatherTypeArr.map((weather, index) => (
+                    <option key={index} value={weather}>{weather}</option>
+                  ))}
+                </select>
+                <label className="form-floating-label" htmlFor="floatingWeather">Weather</label>
+              </div>
+            </div>
+          </div>
+
+          <div className="row mb-2">
+            <div className="col-3">
+              <div className="form-floating">
+                <input
+                  id="floatingPressure"
+                  name="pressure"
+                  className="form-control"
+                  // placeholder="Water Temperature"
+                  onChange={handleChange}
+                  value={formData.pressure}
+                />
+                <label htmlFor="floatingPressure">Pressure (in Hg)</label>
+              </div>
+            </div>
+            <div className="col-3">
+              <div className="form-floating mb-3">
+                <input
+                  id="floatingHighTemp"
+                  name="highTemp"
+                  className="form-control"
+                  // placeholder="High Temperature"
+                  onChange={handleChange}
+                  value={formData.highTemp}
+                />
+                <label htmlFor="floatingHighTemp">High Temp (°F)</label>
+              </div>
+            </div>
+            <div className="col-3">
+              <div className="form-floating mb-3">
+                <input
+                  id="floatingLowTemp"
+                  name="lowTemp"
+                  className="form-control"
+                  // placeholder="Low Temperature"
+                  onChange={handleChange}
+                  value={formData.lowTemp}
+                />
+                <label htmlFor="floatingLowTemp">Low Temp (°F)</label>
+              </div>
+            </div>
+          </div>
+          <button type="submit" className="btn btn-primary m-2">Add Record</button>
+        </form>
+        {formError !== null ?
+          <Alert
+            className="alert"
+            type="danger"
+            messages={formError} />
+          :
+          null
+        }
       </div>
     </div>
   );
