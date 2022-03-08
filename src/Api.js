@@ -58,20 +58,20 @@ class FishFileApi {
   }
 
   /** Get record data by id. */
-  static async getRecord(id) {
-    const res = await this.request(`records/${id}`);
+  static async getRecord(id, username) {
+    const res = await this.request(`users/${username}/records/${id}`);
     return res.record;
   }
 
   /** Get all records data. */
-  static async getAllRecord(id) {
-    const res = await this.request(`records`);
+  static async getAllRecords(username) {
+    const res = await this.request(`users/${username}/records`);
     return res.records;
   }
 
   /** Add record to user's records */
-  static async addRecord(recordData) {
-    const res = await this.request(`records`, recordData, "post");
+  static async addRecord(recordData, username) {
+    const res = await this.request(`users/${username}/records`, recordData, "post");
     return res.record;
   }
 

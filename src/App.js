@@ -88,11 +88,26 @@ function App() {
   }
 
   async function addRecord(recordData) {
-    const location = await FishFileApi.getLocation(recordData.locationId);
-    const usgsId = location.usgsId;
+    console.log("HERES THE DATE: ", recordData.date);
 
-    const pastFlow = await UsgsApi.getPastFlow(usgsId, recordData.date);
-    recordData.flow = pastFlow;
+    // find location to access usgsId property
+    const location = await FishFileApi.getLocation(recordData.locationId, currentUser.username);
+
+    // if there is a usgs Id for the location, get past flow on the given date, with the string version of the location Id
+    if (location.usgsId) {
+      const pastFlow = await UsgsApi.getPastFlow(location.usgsId, recordData.date);
+      recordData.flow = Number(pastFlow);
+    } else {
+      recordData.flow = null;
+    }
+
+    // change string values to numbers for back-end db validation & storage
+    recordData.locationId = Number(recordData.locationId);
+    recordData.rating = Number(recordData.rating);
+    recordData.waterTemp = Number(recordData.waterTemp);
+    recordData.pressure = Number(recordData.pressure);
+    recordData.highTemp = Number(recordData.highTemp);
+    recordData.lowTemp = Number(recordData.lowTemp);
 
     console.log("RECORD DATA************: ", recordData);
     const record = await FishFileApi.addRecord(recordData, currentUser.username);

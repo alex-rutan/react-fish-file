@@ -12,7 +12,7 @@ import WeatherTypeArr from "./WeatherTypeArray";
  */
 
 function AddRecordForm() {
-  const { currentUser, AddRecord, getAllLocations } = useContext(UserContext);
+  const { currentUser, addRecord, getAllLocations } = useContext(UserContext);
   const [ locations, setLocations ] = useState([]);
   const [ formError, setFormError ] = useState(null);
   const [ formData, setFormData ] = useState({
@@ -53,7 +53,7 @@ function AddRecordForm() {
   async function handleSubmit(evt) {
     evt.preventDefault();
     try {
-      await AddRecord(formData);
+      await addRecord(formData);
     } catch (err) {
       setFormError(err);
     }
@@ -108,6 +108,7 @@ function AddRecordForm() {
                   className="form-select form-control"
                   onChange={handleChange}
                   value={formData.rating}
+                  required
                 >
                   <option value={null}></option>
                   {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num, index) => (
