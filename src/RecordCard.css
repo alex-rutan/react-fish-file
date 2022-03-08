@@ -1,0 +1,72 @@
+.record-card {
+  margin: 1em;
+  color: #000000;
+  text-decoration: none;
+  box-shadow: 1px 1px 10px rgb(228, 228, 228);
+}
+
+.record-titles-container {
+  display: flex;
+    justify-content: space-between;
+}
+
+.record-date {
+  color: rgb(126, 126, 126)
+}
+
+.record-card-list-group li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#rating-badge-0 {
+  background-color: #ec0101;
+}
+
+#rating-badge-1 {
+  background-color: #e83a00;
+}
+
+#rating-badge-2 {
+  background-color: #e05500;
+}
+
+#rating-badge-3 {
+  background-color: #d66c00;
+}
+
+#rating-badge-4 {
+  background-color: #ca7f00;
+}
+
+#rating-badge-5 {
+  background-color: #bb9000;
+}
+
+#rating-badge-6 {
+  background-color: #a9a000;
+}
+
+#rating-badge-7 {
+  background-color: #94af00;
+}
+
+#rating-badge-8 {
+  background-color: #7cbc00;
+}
+
+#rating-badge-9 {
+  background-color: #5bc800;
+}
+
+#rating-badge-10 {
+  background-color: #1ad411;
+}
+
+.record-description {
+  padding: 1em;
+  border: 1px solid rgba(203, 206, 240, 0.863);
+  border-radius: .25em;
+  background-color:rgba(203, 206, 240, 0.253);
+}

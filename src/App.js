@@ -16,6 +16,7 @@ function App() {
   const [ isLoading, setIsloading ] = useState(false);
   const navigate = useNavigate();
 
+  /** Sets a token in local storage for use throughout the app */
   useEffect(
     function setLocalStorageToken() {
       if (token === null) {
@@ -27,7 +28,7 @@ function App() {
     [token]
   );
 
-  /**updates currentuser if valid token */
+  /** Updates currentuser if valid token */
   useEffect(
     function getCurrUser() {
       async function getCurrUserResponse() {
@@ -70,6 +71,16 @@ function App() {
     const user = await FishFileApi.updateProfile(profileInfo);
     setCurrentUser(user);
   }
+
+  async function getLocation(id, username) {
+    const location = await FishFileApi.getLocation(id, username);
+    return location;
+  }
+
+  async function getAllLocations(username) {
+    const locations = await FishFileApi.getAllLocations(username);
+    return locations;
+  }
   
   async function addLocation(locationData) {
     const usgsId = locationData.usgsId;
@@ -82,9 +93,9 @@ function App() {
     const location = await FishFileApi.addLocation(locationData, currentUser.username);
   }
 
-  async function getAllLocations(username) {
-    const locations = await FishFileApi.getAllLocations(username);
-    return locations;
+  async function getAllRecords(username) {
+    const records = await FishFileApi.getAllRecords(username);
+    return records;
   }
 
   async function addRecord(recordData) {
@@ -125,8 +136,10 @@ function App() {
         logout,
         updateProfile,
         addLocation,
+        getLocation,
         getAllLocations,
-        addRecord
+        addRecord,
+        getAllRecords
       }}>
       <div className="App">
         <Nav />

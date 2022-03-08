@@ -1,0 +1,4 @@
+.RecordList {
+  display: flex;
+  flex-wrap: wrap;
+}
