@@ -46,7 +46,7 @@ class UsgsApi {
 
   /** Get past flow data by unique USGS river id and date in this format: "2021-07-25" */
   static async getPastFlow(id, date) {
-    const res = await this.request(`dv/?format=json&indent=on&sites=${id}&startDT=${date}&endDT=${date}&siteStatus=all`);
+    const res = await this.request(`dv/?format=json&indent=on&sites=${id}&parameterCd=00060&startDT=${date}&endDT=${date}&siteStatus=all`);
     return res.data.value.timeSeries[0].values[0].value[0].value;
   }
 }
