@@ -1,11 +1,12 @@
 import UserContext from './UserContext';
 import AppRoutes from './Routes';
-import Nav from './Nav';
 import { useNavigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import FishFileApi from './Api';
 import jwt from 'jsonwebtoken';
 import UsgsApi from './UsgsApi';
+import NavBar from './Nav';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 function App() {
@@ -142,7 +143,7 @@ function App() {
         getAllRecords
       }}>
       <div className="App">
-        <Nav />
+        <NavBar />
         <AppRoutes />
       </div>
     </UserContext.Provider>
