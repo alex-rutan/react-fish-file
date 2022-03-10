@@ -7,11 +7,12 @@
 
 .record-titles-container {
   display: flex;
-    justify-content: space-between;
+  justify-content: space-between;
 }
 
 .record-date {
-  color: rgb(126, 126, 126)
+  color: rgb(126, 126, 126);
+  padding-left: 1em;
 }
 
 .record-card-list-group li {
@@ -64,9 +65,13 @@
   background-color: #1ad411;
 }
 
+.fly-badge {
+  margin: 0 .25em;
+}
+
 .record-description {
   padding: 1em;
-  border: 1px solid rgba(203, 206, 240, 0.863);
+  border: 1px solid rgb(221, 221, 221);
   border-radius: .25em;
-  background-color:rgba(203, 206, 240, 0.253);
+  background-color: #f8f9fa;
 }

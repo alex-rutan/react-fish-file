@@ -102,10 +102,15 @@ function RecordCard({ record }) {
             </div>
             <div className="row mb-4">
               <div className="col-3 text-center">
-                <h3><span className="badge" id={`rating-badge-${record.rating}`}>{record.rating}</span></h3>
+                <h3><span className="badge" id={`rating-badge-${record.rating}`}>Rating: {record.rating}</span></h3>
               </div>
-              <div className="col-9">
-
+              <div className="col-2 text-end">
+                <p>Hot Flies:</p>
+              </div>
+              <div className="col-7">
+                {record.flies.split(", ").map(fly => (
+                  <span className="badge rounded-pill bg-light text-dark fly-badge">{fly}</span>
+                ))}
               </div>
             </div>
             <p className="card-text record-description m-2">
