@@ -80,7 +80,7 @@ function LocationCard({ location }) {
 
 
     <div className="LocationCard col-lg-4">
-      <Link to={`/users/${location.username}/locations/${location.id}`} className="nav-link">
+      <Link to={`/locations/${location.id}`} className="nav-link">
         <div className="card location-card">
           <div className="titles-container card-header">
             <h5 className="card-title pt-2">{location.name}</h5>
