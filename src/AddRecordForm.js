@@ -3,6 +3,7 @@ import UserContext from "./UserContext";
 import Alert from "./Alert";
 import "./AddRecordForm.css"
 import WeatherTypeArr from "./WeatherTypeArray";
+import { useNavigate } from "react-router-dom";
 
 /** AddRecordForm: Add Record page that presents form that takes in all
  *  needed information to create a new record instance in our database.
@@ -28,6 +29,7 @@ function AddRecordForm() {
     highTemp: "",
     lowTemp: ""
   });
+  const navigate = useNavigate();
 
   useEffect(
     function getLocations() {
@@ -54,6 +56,7 @@ function AddRecordForm() {
     evt.preventDefault();
     try {
       await addRecord(formData);
+      navigate('/records');
     } catch (err) {
       setFormError(err);
     }

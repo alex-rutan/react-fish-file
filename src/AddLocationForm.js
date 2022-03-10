@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import UserContext from "./UserContext";
 import Alert from "./Alert";
 import "./AddLocationForm.css"
+import { useNavigate } from "react-router-dom";
 
 
 /** AddLocationForm: Add Location page presents form that takes in all
@@ -23,6 +24,7 @@ function AddLocationForm() {
     usgsId: "",
     fish: ""
   });
+  const navigate = useNavigate();
 
   function handleChange(evt) {
     const { name, value } = evt.target;
@@ -37,6 +39,7 @@ function AddLocationForm() {
     evt.preventDefault();
     try {
       await addLocation(formData);
+      navigate('/locations');
     } catch (err) {
       setFormError(err);
     }
