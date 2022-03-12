@@ -18,7 +18,7 @@ function NavBar() {
         ?
         <Navbar variant="light" bg="light" expand="md">
             <Navbar.Brand href="/">
-            <img className="me-3" src={'trout.png'} alt="trout logo"></img>
+            <img className="me-3" src={'/trout.png'} alt="trout logo"></img>
               FishFile
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
