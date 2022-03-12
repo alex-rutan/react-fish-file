@@ -29,7 +29,7 @@ function RecordCard({ record }) {
   return (
     <div className="RecordCard col-lg-6">
       <div className="card record-card">
-        <div className="record-titles-container card-header">
+        <div className="record-titles-container">
           <h5 className="card-title pt-2 record-location-name">{location.name}</h5>
           <h5 className="card-title pt-2 record-date">{reformatDate(record.date)}</h5>
         </div>
