@@ -45,6 +45,12 @@ class FishFileApi {
     return res.location;
   }
 
+  /** Get location's records by unique id. */
+  static async getLocationRecords(id, username) {
+    const res = await this.request(`users/${username}/locations/${id}/records`);
+    return res.records;
+  }
+
   /** Get all locations data. */
   static async getAllLocations(username) {
     const res = await this.request(`users/${username}/locations`);

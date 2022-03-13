@@ -78,6 +78,11 @@ function App() {
     return location;
   }
 
+  async function getLocationRecords(id, username) {
+    const records = await FishFileApi.getLocationRecords(id, username);
+    return records;
+  }
+
   async function getAllLocations(username) {
     const locations = await FishFileApi.getAllLocations(username);
     return locations;
@@ -138,6 +143,7 @@ function App() {
         updateProfile,
         addLocation,
         getLocation,
+        getLocationRecords,
         getAllLocations,
         addRecord,
         getAllRecords
