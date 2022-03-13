@@ -26,7 +26,6 @@ function LocationDetails() {
     [currentUser.username, currLocation.id, getLocationRecords]
   )
 
-
   return (
     <div className="LocationDetails">
       <div className="location-details-titles-container">
@@ -103,9 +102,9 @@ function LocationDetails() {
             </div>
 
             <div className="card-body">
-              <ul className="location-card-list-group list-group  list-group-flush">
-                {weather.forecast.map(day => (
-                  <li key={day.date} className="list-group-item">
+              <ul className="location-forecast-list-group list-group  list-group-flush">
+                {weather.forecast.map((day, index) => (
+                  <li key={day.date} className="list-group-item location-forecast-list-group-item">
                     <div className="day-info text-center">
                       <div className="day-of-week">
                         {getDayOfTheWeek(day.date)}
@@ -114,28 +113,38 @@ function LocationDetails() {
                         <strong>{day.date.slice(8, 10)}</strong>
                       </div>
                     </div>
-                    <span>
-                      <img className="weather-icon-img" src={`/tomorrowApiWeatherIcons/${day.allDayWeatherCode}small.png`} alt="Weather Icon"></img>
-                    </span>
-                    <span>
-                      <div className="temp-gradient-container">
-                        <small>{day.lowTemp}</small>
-                        <div className="temp-gradient-bar" style={{ width: `${(day.highTemp - day.lowTemp) * 4}px`, height: "5px" }}></div>
-                        <small>{day.highTemp}</small>
-                      </div>
-                    </span>
-                    <span>
-                      <FontAwesomeIcon icon={faUmbrella} className="pe-3" />
-                      <small>{day.precipChance}%</small>
-                    </span>
-                    <span>
-                      <FontAwesomeIcon icon={faGaugeHigh} className="pe-3" />
-                      <small>{day.pressure}</small>
-                    </span>
-                    <span>
-                      <FontAwesomeIcon icon={faWind} className="pe-3" />
-                      <small>{day.windSpeed}mph</small>
-                    </span>
+                    <div>
+                      <span>
+                        <img className="weather-icon-img" src={`/tomorrowApiWeatherIcons/${day.allDayWeatherCode}small.png`} alt="Weather Icon"></img>
+                      </span>
+                    </div>
+                    <div className="temp-gradient-container">
+                      <span>
+                        <div className="temp-gradient-div">
+                          <small style={{ paddingLeft: `${(day.lowTemp - (weather.current.minTempWeek - 5)) * 2}px` }}>{day.lowTemp}</small>
+                          <div className="temp-gradient-bar" style={{ width: `${(day.highTemp - day.lowTemp) * 2}px`, height: "5px" }}></div>
+                          <small>{day.highTemp}</small>
+                        </div>
+                      </span>
+                    </div>
+                    <div>
+                      <span>
+                        <FontAwesomeIcon icon={faUmbrella} className="pe-3" />
+                        <small>{day.precipChance}%</small>
+                      </span>
+                    </div>
+                    <div>
+                      <span>
+                        <FontAwesomeIcon icon={faGaugeHigh} className="pe-3" />
+                        <small>{day.pressure}</small>
+                      </span>
+                    </div>
+                    <div>
+                      <span>
+                        <FontAwesomeIcon icon={faWind} className="pe-3" />
+                        <small>{day.windSpeed}mph</small>
+                      </span>
+                    </div>
                   </li>
                 ))}
               </ul>
