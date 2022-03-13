@@ -1,12 +1,35 @@
 .location-card {
-  margin: 1em;
   color: #000000;
   text-decoration: none;
   box-shadow: 1px 1px 10px rgb(228, 228, 228);
 }
 
+.location-titles-container {
+  margin: .75em 1.5em 0em 1.5em;
+}
+
 .location-card-list-group li {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.temps-container {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.curr-temp-container {
+  text-align: end;
+}
+
+.high-low-temps-container {
+  min-width: 25px;
+  padding-top: .6em;
+  text-align: start;
+}
+
+.high-temp, .low-temp {
+  line-height: .4em;
 }
