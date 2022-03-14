@@ -6,6 +6,7 @@ import FishFileApi from './Api';
 import jwt from 'jsonwebtoken';
 import UsgsApi from './UsgsApi';
 import NavBar from './Nav';
+import { setWithExpiry } from "./expiryLocalStorage";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
@@ -83,6 +84,16 @@ function App() {
     return records;
   }
 
+  async function getLocationWeather(locationId, username, coordinates) {
+    const weather = await FishFileApi.getLocationWeather(locationId, username, coordinates);
+    console.log("THIS IS THE WEATHER OBJECT IN REACT APP: ", weather);
+
+    // sets a location's weather into localStorage with a 30 minutes expiration
+    setWithExpiry(`location-${locationId}-weather`, weather, 1800000);
+
+    return weather;
+  }
+
   async function getAllLocations(username) {
     const locations = await FishFileApi.getAllLocations(username);
     return locations;
@@ -96,7 +107,7 @@ function App() {
     locationData.decLong = decLong;
     
     console.log("LOCATION DATA************: ", locationData);
-    const location = await FishFileApi.addLocation(locationData, currentUser.username);
+    await FishFileApi.addLocation(locationData, currentUser.username);
   }
 
   async function getAllRecords(username) {
@@ -127,7 +138,7 @@ function App() {
     recordData.lowTemp = Number(recordData.lowTemp);
 
     console.log("RECORD DATA************: ", recordData);
-    const record = await FishFileApi.addRecord(recordData, currentUser.username);
+    await FishFileApi.addRecord(recordData, currentUser.username);
   }
 
   // TODO: make loading spinner component
@@ -144,6 +155,7 @@ function App() {
         addLocation,
         getLocation,
         getLocationRecords,
+        getLocationWeather,
         getAllLocations,
         addRecord,
         getAllRecords

@@ -1,19 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
-import FishFileApi from "./Api";
+import UserContext from "./UserContext";
 import UsgsApi from "./UsgsApi";
 import "./LocationCard.css";
 import WeatherCodes from "./WeatherCodeObject";
+import { getWithExpiry } from "./expiryLocalStorage";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faWind, faUmbrella, faGaugeHigh, faWater } from '@fortawesome/free-solid-svg-icons'
 
 
 function LocationCard({ location, position }) {
+  const { currentUser, getLocationWeather } = useContext(UserContext);
   const [ currFlow, setCurrFlow ] = useState();
-  const [weather, setWeather] = useState({
-    current: {},
-    forecast: {}
-  });
+  const [ weather, setWeather ] = useState(
+    getWithExpiry(`location-${location.id}-weather`)
+    ||
+    { current: {}, forecast: {} }
+  );
 
   useEffect(
     function getCurrFlow() {
@@ -31,14 +34,13 @@ function LocationCard({ location, position }) {
 
   useEffect(
     function getWeather() {
-      // if (Object.keys(weather.current).length === 0) {
+      if (Object.keys(weather.current).length === 0) {
         const delayWeatherApiCalls = setTimeout(() => {
           async function getWeatherResponse() {
             const decLat = String(location.decLat);
             const decLong = String(location.decLong);
             const coords = { decLat, decLong };
-            const weatherResponse = await FishFileApi.getWeather(location.id, location.username, coords);
-            console.log("THIS IS THE WEATHER OBJECT IN REACT APP: ", weatherResponse);
+            const weatherResponse = await getLocationWeather(location.id, currentUser.username, coords);
 
             setWeather(weatherResponse);
           }
@@ -46,9 +48,9 @@ function LocationCard({ location, position }) {
         }, position * 1000);
 
         return () => clearTimeout(delayWeatherApiCalls);
-      // }
+      }
     },
-    [location.id, location.username, location.decLat, location.decLong]
+    [location.id, currentUser.username, location.decLat, location.decLong, getLocationWeather, position, weather]
   )
   
   return (

@@ -33,12 +33,6 @@ class FishFileApi {
 
   // Individual API routes
 
-  /** Get weather for a location */
-  static async getWeather(id, username, coordinates) {
-    const res = await this.request(`users/${username}/locations/${id}/weather`, coordinates);
-    return res.weather;
-  }
-
   /** Get location data by unique id. */
   static async getLocation(id, username) {
     const res = await this.request(`users/${username}/locations/${id}`);
@@ -49,6 +43,12 @@ class FishFileApi {
   static async getLocationRecords(id, username) {
     const res = await this.request(`users/${username}/locations/${id}/records`);
     return res.records;
+  }
+
+  /** Get weather for a location */
+  static async getLocationWeather(id, username, coordinates) {
+    const res = await this.request(`users/${username}/locations/${id}/weather`, coordinates);
+    return res.weather;
   }
 
   /** Get all locations data. */
