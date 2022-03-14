@@ -107,7 +107,7 @@ function RecordCard({ record }) {
             </div>
             <div className="col-7">
               {record.flies.split(", ").map(fly => (
-                <span className="badge rounded-pill bg-light text-dark fly-badge">{fly}</span>
+                <span key={fly} className="badge rounded-pill bg-light text-dark fly-badge">{fly}</span>
               ))}
             </div>
           </div>
