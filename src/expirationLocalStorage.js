@@ -1,17 +1,17 @@
 
-function setWithExpiry(key, value, ttl) {
+function setWithExpiration(key, value, ttl) {
   const now = new Date()
 
   const item = {
     value: value,
-    expiry: now.getTime() + ttl,
+    expiration: now.getTime() + ttl,
   }
 
   localStorage.setItem(key, JSON.stringify(item))
 }
 
 
-function getWithExpiry(key) {
+function getWithExpiration(key) {
   const itemStr = localStorage.getItem(key)
 
   // if the item doesn't exist, return null
@@ -22,8 +22,8 @@ function getWithExpiry(key) {
   const item = JSON.parse(itemStr)
   const now = new Date()
 
-  // compare the expiry time of the item with the current time
-  if (now.getTime() > item.expiry) {
+  // compare the expiration time of the item with the current time
+  if (now.getTime() > item.expiration) {
     // if the item is expired, delete the item from storage
     // and return null
     localStorage.removeItem(key)
@@ -35,4 +35,4 @@ function getWithExpiry(key) {
 }
 
 
-export { setWithExpiry, getWithExpiry };
+export { setWithExpiration, getWithExpiration };

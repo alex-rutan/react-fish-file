@@ -4,7 +4,7 @@ import UserContext from "./UserContext";
 import UsgsApi from "./UsgsApi";
 import "./LocationCard.css";
 import WeatherCodes from "./WeatherCodeObject";
-import { getWithExpiry } from "./expiryLocalStorage";
+import { getWithExpiration } from "./expirationLocalStorage";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faWind, faUmbrella, faGaugeHigh, faWater } from '@fortawesome/free-solid-svg-icons'
 
@@ -13,7 +13,7 @@ function LocationCard({ location, position }) {
   const { currentUser, getLocationWeather } = useContext(UserContext);
   const [ currFlow, setCurrFlow ] = useState();
   const [ weather, setWeather ] = useState(
-    getWithExpiry(`location-${location.id}-weather`)
+    getWithExpiration(`location-${location.id}-weather`)
     ||
     { current: {}, forecast: {} }
   );

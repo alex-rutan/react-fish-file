@@ -6,7 +6,7 @@ import FishFileApi from './Api';
 import jwt from 'jsonwebtoken';
 import UsgsApi from './UsgsApi';
 import NavBar from './Nav';
-import { setWithExpiry } from "./expiryLocalStorage";
+import { setWithExpiration } from "./expirationLocalStorage";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
@@ -89,7 +89,7 @@ function App() {
     console.log("THIS IS THE WEATHER OBJECT IN REACT APP: ", weather);
 
     // sets a location's weather into localStorage with a 30 minutes expiration
-    setWithExpiry(`location-${locationId}-weather`, weather, 1800000);
+    setWithExpiration(`location-${locationId}-weather`, weather, 1800000);
 
     return weather;
   }
