@@ -20,8 +20,8 @@ function LocationList() {
 
   return (
     <div className="LocationList">
-      {locationList.map(location => (
-        <LocationCard key={location.id} location={location} />
+      {locationList.map((location, index) => (
+        <LocationCard key={location.id} location={location} position={index} />
       ))}
     </div>
   )

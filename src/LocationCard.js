@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faWind, faUmbrella, faGaugeHigh, faWater } from '@fortawesome/free-solid-svg-icons'
 
 
-function LocationCard({ location }) {
+function LocationCard({ location, position }) {
   const [ currFlow, setCurrFlow ] = useState();
   const [weather, setWeather] = useState({
     current: {},
@@ -31,16 +31,22 @@ function LocationCard({ location }) {
 
   useEffect(
     function getWeather() {
-      async function getWeatherResponse() {
-        const decLat = String(location.decLat);
-        const decLong = String(location.decLong);
-        const coords = { decLat, decLong };
-        const weatherResponse = await FishFileApi.getWeather(location.id, location.username, coords);
-        console.log("THIS IS THE WEATHER OBJECT IN REACT APP: ", weatherResponse);
+      // if (Object.keys(weather.current).length === 0) {
+        const delayWeatherApiCalls = setTimeout(() => {
+          async function getWeatherResponse() {
+            const decLat = String(location.decLat);
+            const decLong = String(location.decLong);
+            const coords = { decLat, decLong };
+            const weatherResponse = await FishFileApi.getWeather(location.id, location.username, coords);
+            console.log("THIS IS THE WEATHER OBJECT IN REACT APP: ", weatherResponse);
 
-        setWeather(weatherResponse);
-      }
-      getWeatherResponse();
+            setWeather(weatherResponse);
+          }
+          getWeatherResponse();
+        }, position * 1000);
+
+        return () => clearTimeout(delayWeatherApiCalls);
+      // }
     },
     [location.id, location.username, location.decLat, location.decLong]
   )
