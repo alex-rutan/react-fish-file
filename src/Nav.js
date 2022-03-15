@@ -50,7 +50,7 @@ function NavBar() {
               <Nav className="me-auto">
               </Nav>
               <Nav>
-                <Nav.Link href="/login">Login</Nav.Link>
+              <Nav.Link className="me-3" href="/login">Log In</Nav.Link>
                 <Nav.Link href="/signup">Sign Up</Nav.Link>
               </Nav>
             </Navbar.Collapse>

@@ -1,27 +1,9 @@
 .navbar {
   padding: 0em 3em;
-  /* background-color: rgb(246, 246, 255); */
 } 
 
 .navbar-brand {
   padding-right: 1.25em;
 }
 
-
-/* .navbar-brand, .nav-link {
-  color: rgb(159, 161, 189);
-}
-
-.nav-link:hover, .navbar-brand:hover {
-  color: rgb(9, 18, 116);
-} */
-
-/* .navbar-nav .nav-item .active,
-.navbar-nav .nav-item:hover .nav-link {
-  color: pink;
-} */
-
-/* .navbar-nav > .nav-item > .active {
-  color: red;
-} */
 
