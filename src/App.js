@@ -7,7 +7,7 @@ import jwt from 'jsonwebtoken';
 import UsgsApi from './UsgsApi';
 import NavBar from './Nav';
 import { setWithExpiration } from "./expirationLocalStorage";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.css';
 
 
 function App() {

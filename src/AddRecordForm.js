@@ -67,6 +67,13 @@ function AddRecordForm() {
       <div className="card record-form-card">
         <form className="record-form" onSubmit={handleSubmit}>
           <legend className="form-title m-2">Add Record</legend> 
+          {formError !== null ?
+            <Alert
+              type="danger"
+              messages={formError} />
+            :
+            null
+          }
           <div className="row mb-4">
             <div className="col-7">
               <div className="form-floating">
@@ -230,14 +237,6 @@ function AddRecordForm() {
           </div>
           <button type="submit" className="btn btn-primary m-2">Add Record</button>
         </form>
-        {formError !== null ?
-          <Alert
-            className="alert"
-            type="danger"
-            messages={formError} />
-          :
-          null
-        }
       </div>
     </div>
   );

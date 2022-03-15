@@ -37,50 +37,45 @@ function LoginForm() {
   }
 
   return (
-    <div className="LoginForm">
-      <div className="LoginForm-body">
-        <div className="LoginForm-form card mx-auto">
-          <form className="Login-page" onSubmit={handleSubmit}>
-            <div className="form-group">
-              <legend className="form-title">Login</legend>
-              <div className="form-floating mb-3">
-                <input
-                  id="floatingUsername"
-                  name="username"
-                  type="username"
-                  className="form-control"
-                  placeholder="Username"
-                  onChange={handleChange}
-                  value={loginInfo.username}
-                  required
-                />
-                <label htmlFor="floatingUsername">Username</label>
-              </div>
-              <div className="form-floating mb-3">
-                <input
-                  id="floatingPassword"
-                  name="password"
-                  type="password"
-                  className="form-control"
-                  placeholder="Password"
-                  onChange={handleChange}
-                  value={loginInfo.password}
-                  required
-                />
-                <label htmlFor="floatingPassword">Password</label>
-              </div>
-            </div>
-            <button className="btn btn-primary me-2">Login</button>
-          </form>
+    <div className="LoginForm text-center">
+      <div className="card login-form-card">
+        <form className="login-form" onSubmit={handleSubmit}>
+          <legend className="form-title mb-3">Log In</legend>
           {formError !== null ?
             <Alert
-              className="alert"
               type="danger"
               messages={formError} />
             :
             null
           }
-        </div>
+          <div className="form-floating mb-4">
+            <input
+              id="floatingUsername"
+              name="username"
+              type="username"
+              className="form-control"
+              // placeholder="Username"
+              onChange={handleChange}
+              value={loginInfo.username}
+              required
+            />
+            <label className="form-label" htmlFor="floatingUsername">Username</label>
+          </div>
+          <div className="form-floating mb-3">
+            <input
+              id="floatingPassword"
+              name="password"
+              type="password"
+              className="form-control"
+              // placeholder="Password"
+              onChange={handleChange}
+              value={loginInfo.password}
+              required
+            />
+            <label className="form-label" htmlFor="floatingPassword">Password</label>
+          </div>
+          <button type="submit" className="btn btn-primary m-2">Log In</button>
+        </form>
       </div>
     </div>
   );

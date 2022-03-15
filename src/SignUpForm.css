@@ -1,36 +1,17 @@
 .SignUpForm {
-    position: relative;
-    text-align: center;
-    z-index: 1;
-}
-  
-.SignUpForm-form {
-    position: absolute;
-    align-items: center;
-    margin-top: 25em;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: auto;
-    background-color:rgb(245, 255, 255);
-    border-radius: .5em;
-    padding: 2em;
-    box-shadow: 1px 1px 5px rgb(49, 49, 49);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2em;
 }
 
-.form-title {
-  padding-bottom: .5em
+.signup-form-card {
+  width: 30em;
+  margin: 3em;
+  box-shadow: 1px 1px 10px rgb(228, 228, 228);
+  border-radius: .5em;
 }
 
-button {
-  margin: .5em;
-}
-
-.form-control {
-  width: 20em;
-  margin: .5em;
-}
-
-.alert {
-  margin: .5em;
-  
+.signup-form {
+  margin: 2.5em 3em;
 }

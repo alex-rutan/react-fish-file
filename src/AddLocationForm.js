@@ -50,6 +50,13 @@ function AddLocationForm() {
       <div className="card location-form-card">
         <form className="location-form" onSubmit={handleSubmit}>
             <legend className="form-title m-2">Add Location</legend>
+            {formError !== null ?
+              <Alert
+                type="danger"
+                messages={formError} />
+              :
+              null
+            }
             <div className="form-floating mb-4">
               <input
                 id="floatingName"
@@ -100,14 +107,6 @@ function AddLocationForm() {
           </div>
           <button type="submit" className="btn btn-primary m-2">Add Location</button>
         </form>
-        {formError !== null ?
-          <Alert
-            className="alert"
-            type="danger"
-            messages={formError} />
-          :
-          null
-        }
       </div>
     </div>
   );
