@@ -49,7 +49,7 @@ function AddLocationForm() {
     <div className="AddLocationForm">
       <div className="card location-form-card">
         <form className="location-form" onSubmit={handleSubmit}>
-            <legend className="form-title m-2">Add Location</legend>
+            <legend className="form-title mb-4">Add Location</legend>
             {formError !== null ?
               <Alert
                 type="danger"
@@ -90,7 +90,7 @@ function AddLocationForm() {
               </div>
               <label htmlFor="floatingUsgsId">USGS Station Number</label>
             </div>
-            <div className="form-floating mb-3">
+            <div className="form-floating mb-4">
               <input
                 id="floatingFish"
                 name="fish"
@@ -105,7 +105,11 @@ function AddLocationForm() {
               </div>
               <label htmlFor="floatingFish">Fish Species</label>
           </div>
-          <button type="submit" className="btn btn-primary m-2">Add Location</button>
+          <div className="form-check form-switch mb-4">
+            <input className="form-check-input" type="checkbox" id="flexSwitchCheckDefault"/>
+              <label className="form-check-label" for="flexSwitchCheckDefault">Add location as a favorite? (favorite locations show up on home screen)</label>
+          </div>
+          <button type="submit" className="btn btn-primary">Add Location</button>
         </form>
       </div>
     </div>

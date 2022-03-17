@@ -66,7 +66,7 @@ function AddRecordForm() {
     <div className="AddRecordForm">
       <div className="card record-form-card">
         <form className="record-form" onSubmit={handleSubmit}>
-          <legend className="form-title m-2">Add Record</legend> 
+          <legend className="form-title mb-4">Add Record</legend> 
           {formError !== null ?
             <Alert
               type="danger"
@@ -222,7 +222,7 @@ function AddRecordForm() {
               </div>
             </div>
             <div className="col-3">
-              <div className="form-floating mb-3">
+              <div className="form-floating mb-4">
                 <input
                   id="floatingLowTemp"
                   name="lowTemp"
@@ -235,7 +235,7 @@ function AddRecordForm() {
               </div>
             </div>
           </div>
-          <button type="submit" className="btn btn-primary m-2">Add Record</button>
+          <button type="submit" className="btn btn-primary">Add Record</button>
         </form>
       </div>
     </div>
