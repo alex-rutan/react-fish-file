@@ -22,7 +22,8 @@ function AddLocationForm() {
     username: currentUser.username,
     name: "",
     usgsId: "",
-    fish: ""
+    fish: "",
+    favorite: false
   });
   const navigate = useNavigate();
 
@@ -113,7 +114,13 @@ function AddLocationForm() {
             <label htmlFor="floatingFish">Fish Species</label>
           </div>
           <div className="form-check form-switch mb-4">
-            <input className="form-check-input" type="checkbox" id="flexSwitchCheckDefault" />
+            <input 
+            className="form-check-input" 
+            type="checkbox" 
+            id="flexSwitchCheckDefault"
+            onChange={handleChange}
+            value={formData.favorite}
+             />
             <label className="form-check-label" htmlFor="flexSwitchCheckDefault">
               Add location as a favorite? (favorite locations show up on home screen)
             </label>

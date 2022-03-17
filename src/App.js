@@ -130,6 +130,7 @@ function App() {
   async function addRecord(recordData) {
     // find location to access usgsId property
     const location = await FishFileApi.getLocation(recordData.locationId, currentUser.username);
+    console.log("****************HERE IS THE RECORD DATA: ", recordData);
 
     // if there is a usgs Id for the location, get past flow on the given date, with the string version of the location Id
     if (location.usgsId) {
