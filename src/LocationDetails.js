@@ -9,12 +9,19 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faWind, faUmbrella, faGaugeHigh, faWater } from '@fortawesome/free-solid-svg-icons'
 
 
+/** LocationDetails: Details page for a specific location detailing current conditions,
+ *  a current flow graph, and records that belong to the location
+ * 
+ *  Context: currentUser, getLocationRecords, updateLocation
+ *  State: currLocation, weather, currFlow, locationRecords, favoriteToggle
+ */
+
 function LocationDetails() {
   const { currentUser, getLocationRecords, updateLocation } = useContext(UserContext);
   const location = useLocation();
   const { currLocation, weather, currFlow } = location.state;
-  const [ locationRecords, setLocationRecords ] = useState([]);
-  const [ favoriteToggle, setFavoriteToggle ] = useState(currLocation.favorite);
+  const [locationRecords, setLocationRecords] = useState([]);
+  const [favoriteToggle, setFavoriteToggle] = useState(currLocation.favorite);
 
   useEffect(
     function getAllLocationRecords() {
@@ -27,6 +34,7 @@ function LocationDetails() {
     [currentUser.username, currLocation.id, getLocationRecords]
   )
 
+  // Handles the onCLick favorite button that updates the location
   async function handleFavorite() {
     let newFavoriteToggle = !favoriteToggle;
     await updateLocation(currLocation.id, { favorite: newFavoriteToggle });
@@ -37,12 +45,26 @@ function LocationDetails() {
     <div className="LocationDetails">
       <div className="location-details-titles-container">
         <h3 className="location-details-title">{currLocation.name}
-        {favoriteToggle === false
-        ?
-        <span className="favorite-button"><button type="button" className="btn btn-primary btn-sm" onClick={handleFavorite}>Add to Favorites</button></span>
-        :
-        <span className="favorite-button"><button type="button" className="btn btn-primary btn-sm" onClick={handleFavorite}>Remove from Favorites</button></span>
-        }
+          {favoriteToggle === false
+            ?
+            <span className="favorite-button">
+              <button
+                type="button"
+                className="btn btn-primary btn-sm"
+                onClick={handleFavorite}>
+                Add to Favorites
+              </button>
+            </span>
+            :
+            <span className="favorite-button">
+              <button
+                type="button"
+                className="btn btn-primary btn-sm"
+                onClick={handleFavorite}>
+                Remove from Favorites
+              </button>
+            </span>
+          }
         </h3>
         <h6 className="location-details-subtitle">USGS ID: {currLocation.usgsId}</h6>
       </div>
@@ -55,8 +77,14 @@ function LocationDetails() {
             <div className="card-body">
               <div className="mt-3 text-center weather-top">
                 <div>
-                  <img className="weather-icon-img" src={`/tomorrowApiWeatherIcons/${weather.current.currWeatherCode}.png`} alt="Current Weather Icon"></img>
-                  <p className="mt-2 mb-3"><small>{WeatherCodes[weather.current.currWeatherCode]}</small></p>
+                  <img
+                    className="weather-icon-img"
+                    src={`/tomorrowApiWeatherIcons/${weather.current.currWeatherCode}.png`}
+                    alt="Current Weather Icon">
+                  </img>
+                  <p className="mt-2 mb-3">
+                    <small>{WeatherCodes[weather.current.currWeatherCode]}</small>
+                  </p>
                 </div>
                 <div className="row location-details-temps-container">
                   <div className="col-xl-7 col-lg-6 location-details-curr-temp-container">
@@ -73,22 +101,30 @@ function LocationDetails() {
                   {currFlow ?
                     <li className="list-group-item">
                       <FontAwesomeIcon icon={faWater} />
-                      <span className="badge rounded-pill bg-light text-dark">{currFlow} CFS</span>
+                      <span className="badge rounded-pill bg-light text-dark">
+                        {currFlow} CFS
+                      </span>
                     </li>
                     :
                     null
                   }
                   <li className="list-group-item">
                     <FontAwesomeIcon icon={faGaugeHigh} />
-                    <span className="badge rounded-pill bg-light text-dark">{weather.current.pressure} in Hg</span>
+                    <span className="badge rounded-pill bg-light text-dark">
+                      {weather.current.pressure} in Hg
+                    </span>
                   </li>
                   <li className="list-group-item">
                     <FontAwesomeIcon icon={faWind} />
-                    <span className="badge rounded-pill bg-light text-dark">{weather.current.windSpeed} mph</span>
+                    <span className="badge rounded-pill bg-light text-dark">
+                      {weather.current.windSpeed} mph
+                    </span>
                   </li>
                   <li className="list-group-item">
                     <FontAwesomeIcon icon={faUmbrella} />
-                    <span className="badge rounded-pill bg-light text-dark">{weather.current.precipChance}%</span>
+                    <span className="badge rounded-pill bg-light text-dark">
+                      {weather.current.precipChance}%
+                    </span>
                   </li>
                 </ul>
               </div>
@@ -101,7 +137,10 @@ function LocationDetails() {
               <h5 className="card-title pt-2">8-Day Flow Chart</h5>
             </div>
             <div className="card-body flow-card-body">
-              <img src={`http://waterdata.usgs.gov/nwisweb/graph?site_no=${currLocation.usgsId}&parm_cd=00060`} alt={`USGS Water-data graph for site ${currLocation.usgsId}`} />
+              <img
+                src={`http://waterdata.usgs.gov/nwisweb/graph?site_no=${currLocation.usgsId}&parm_cd=00060`}
+                alt={`USGS Water-data graph for site ${currLocation.usgsId}`}
+              />
             </div>
           </div>
         </div>
@@ -124,14 +163,24 @@ function LocationDetails() {
                     </div>
                     <div>
                       <span>
-                        <img className="weather-icon-img" src={`/tomorrowApiWeatherIcons/${day.allDayWeatherCode}small.png`} alt="Weather Icon"></img>
+                        <img
+                          className="weather-icon-img"
+                          src={`/tomorrowApiWeatherIcons/${day.allDayWeatherCode}small.png`}
+                          alt="Weather Icon">
+                        </img>
                       </span>
                     </div>
                     <div className="temp-gradient-container">
                       <span>
                         <div className="temp-gradient-div">
-                          <small style={{ paddingLeft: `${(day.lowTemp - (weather.current.minTempWeek - 5)) * 2}px` }}>{day.lowTemp}</small>
-                          <div className="temp-gradient-bar" style={{ width: `${(day.highTemp - day.lowTemp) * 2}px`, height: "5px" }}></div>
+                          <small
+                            style={{ paddingLeft: `${(day.lowTemp - (weather.current.minTempWeek - 5)) * 2}px` }}>
+                            {day.lowTemp}
+                          </small>
+                          <div
+                            className="temp-gradient-bar"
+                            style={{ width: `${(day.highTemp - day.lowTemp) * 2}px`, height: "5px" }}>
+                          </div>
                           <small>{day.highTemp}</small>
                         </div>
                       </span>

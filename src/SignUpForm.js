@@ -6,9 +6,9 @@ import "./SignUpForm.css"
 
 /** SignUpForm: Sign up page that presents form that takes in all
  *  needed information to create a new user instance in our database.
- *
- *  State: signUpInfo, formError
+ *  
  *  Context: signup
+ *  State: signUpInfo, formError
  */
 
 function SignUpForm() {
@@ -22,6 +22,7 @@ function SignUpForm() {
     email: ""
   });
 
+  // Handles form changes on keystrokes
   function handleChange(evt) {
     const { name, value } = evt.target;
     setSignUpInfo((SignUpData) => ({
@@ -63,7 +64,9 @@ function SignUpForm() {
               value={signUpInfo.username}
               required
             />
-            <label className="form-label" htmlFor="floatingUsername">Username</label>
+            <label className="form-label" htmlFor="floatingUsername">
+              Username
+            </label>
           </div>
           <div className="form-floating mb-4">
             <input
@@ -76,7 +79,9 @@ function SignUpForm() {
               value={signUpInfo.password}
               required
             />
-            <label className="form-label" htmlFor="floatingPassword">Password</label>
+            <label className="form-label" htmlFor="floatingPassword">
+              Password
+            </label>
           </div>
           <div className="form-floating mb-4">
             <input
@@ -88,7 +93,9 @@ function SignUpForm() {
               value={signUpInfo.firstName}
               required
             />
-            <label className="form-label" htmlFor="floatingFirstName">First Name</label>
+            <label className="form-label" htmlFor="floatingFirstName">
+              First Name
+            </label>
           </div>
           <div className="form-floating mb-4">
             <input
@@ -100,7 +107,9 @@ function SignUpForm() {
               value={signUpInfo.lastName}
               required
             />
-            <label className="form-label" htmlFor="floatingLastName">Last Name</label>
+            <label className="form-label" htmlFor="floatingLastName">
+              Last Name
+            </label>
           </div>
           <div className="form-floating mb-3">
             <input
@@ -113,9 +122,13 @@ function SignUpForm() {
               value={signUpInfo.email}
               required
             />
-            <label className="form-label" htmlFor="floatingEmail">Email</label>
+            <label className="form-label" htmlFor="floatingEmail">
+              Email
+            </label>
           </div>
-          <button type="submit" className="btn btn-primary m-2">Sign Up</button>
+          <button type="submit" className="btn btn-primary m-2">
+            Sign Up
+          </button>
         </form>
       </div>
     </div>

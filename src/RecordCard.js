@@ -2,10 +2,16 @@ import React, { useState, useEffect, useContext } from "react";
 import UserContext from "./UserContext";
 import "./RecordCard.css";
 
+/** RecordCard: Card showing details of a specific record.
+ *  
+ *  Props: record
+ *  Context: currentUser, getLocation
+ *  State: location
+ */
 
 function RecordCard({ record }) {
   const { currentUser, getLocation } = useContext(UserContext);
-  const [ location, setLocation ] = useState({});
+  const [location, setLocation] = useState({});
 
   useEffect(
     function getRecordLocation() {
@@ -17,7 +23,7 @@ function RecordCard({ record }) {
     },
     [record.locationId, currentUser.username, getLocation]
   )
-  
+
   /** Reformats date from yyyy-mm-dd to mm/dd/yyyy */
   function reformatDate(date) {
     date = date.slice(0, 10);
@@ -41,7 +47,9 @@ function RecordCard({ record }) {
                   ?
                   <li className="list-group-item">
                     Weather:
-                    <span className="badge rounded-pill bg-light text-dark">{record.weather}</span>
+                    <span className="badge rounded-pill bg-light text-dark">
+                      {record.weather}
+                    </span>
                   </li>
                   :
                   null
@@ -50,7 +58,9 @@ function RecordCard({ record }) {
                   ?
                   <li className="list-group-item">
                     High Temp:
-                    <span className="badge rounded-pill bg-light text-dark">{record.highTemp}°</span>
+                    <span className="badge rounded-pill bg-light text-dark">
+                      {record.highTemp}°
+                    </span>
                   </li>
                   :
                   null
@@ -59,7 +69,9 @@ function RecordCard({ record }) {
                   ?
                   <li className="list-group-item">
                     Low Temp:
-                    <span className="badge rounded-pill bg-light text-dark">{record.lowTemp}°</span>
+                    <span className="badge rounded-pill bg-light text-dark">
+                      {record.lowTemp}°
+                    </span>
                   </li>
                   :
                   null
@@ -72,7 +84,9 @@ function RecordCard({ record }) {
                   ?
                   <li className="list-group-item">
                     Flow:
-                    <span className="badge rounded-pill bg-light text-dark">{record.flow} CFS</span>
+                    <span className="badge rounded-pill bg-light text-dark">
+                      {record.flow} CFS
+                    </span>
                   </li>
                   :
                   null
@@ -81,7 +95,9 @@ function RecordCard({ record }) {
                   ?
                   <li className="list-group-item">
                     Pressure:
-                    <span className="badge rounded-pill bg-light text-dark">{record.pressure} in Hg</span>
+                    <span className="badge rounded-pill bg-light text-dark">
+                      {record.pressure} in Hg
+                    </span>
                   </li>
                   :
                   null
@@ -90,7 +106,9 @@ function RecordCard({ record }) {
                   ?
                   <li className="list-group-item">
                     Water Temp:
-                    <span className="badge rounded-pill bg-light text-dark">{record.waterTemp}°</span>
+                    <span className="badge rounded-pill bg-light text-dark">
+                      {record.waterTemp}°
+                    </span>
                   </li>
                   :
                   null
@@ -100,14 +118,22 @@ function RecordCard({ record }) {
           </div>
           <div className="row mb-4">
             <div className="col-3 text-center">
-              <h3><span className="badge" id={`rating-badge-${record.rating}`}>Rating: {record.rating}</span></h3>
+              <h3>
+                <span className="badge" id={`rating-badge-${record.rating}`}>
+                  Rating: {record.rating}
+                </span>
+              </h3>
             </div>
             <div className="col-2 text-end">
               <p>Hot Flies:</p>
             </div>
             <div className="col-7">
               {record.flies.split(", ").map(fly => (
-                <span key={fly} className="badge rounded-pill bg-light text-dark fly-badge">{fly}</span>
+                <span
+                  key={fly}
+                  className="badge rounded-pill bg-light text-dark fly-badge">
+                  {fly}
+                </span>
               ))}
             </div>
           </div>

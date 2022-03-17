@@ -3,9 +3,16 @@ import UserContext from "./UserContext";
 import RecordCard from "./RecordCard";
 import "./RecordList.css";
 
+
+/** RecordList: List that returns record cards.
+ * 
+ *  Context: currentUser, getAllRecords
+ *  State: recordList
+ */
+
 function RecordList() {
   const { currentUser, getAllRecords } = useContext(UserContext);
-  const [ recordList, setRecordList ] = useState([]);
+  const [recordList, setRecordList] = useState([]);
 
   useEffect(
     function getRecords() {

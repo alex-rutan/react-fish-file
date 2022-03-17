@@ -6,9 +6,9 @@ import "./LoginForm.css"
 
 /** LoginForm: Login page that presents form that takes in a username 
  *  and password to run authentication.
- *
- *  State: loginInfo, formError
+ * 
  *  Context: login
+ *  State: loginInfo, formError
  */
 
 function LoginForm() {
@@ -16,7 +16,7 @@ function LoginForm() {
   const [loginInfo, setLoginInfo] = useState({ username: "", password: "" });
   const [formError, setFormError] = useState(null);
 
-
+  // Handles form changes on keystrokes
   function handleChange(evt) {
     const { name, value } = evt.target;
     setLoginInfo((LoginData) => ({
@@ -59,7 +59,9 @@ function LoginForm() {
               value={loginInfo.username}
               required
             />
-            <label className="form-label" htmlFor="floatingUsername">Username</label>
+            <label className="form-label" htmlFor="floatingUsername">
+              Username
+            </label>
           </div>
           <div className="form-floating mb-3">
             <input
@@ -72,7 +74,9 @@ function LoginForm() {
               value={loginInfo.password}
               required
             />
-            <label className="form-label" htmlFor="floatingPassword">Password</label>
+            <label className="form-label" htmlFor="floatingPassword">
+              Password
+            </label>
           </div>
           <button type="submit" className="btn btn-primary m-2">Log In</button>
         </form>

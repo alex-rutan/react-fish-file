@@ -9,6 +9,13 @@ import NavBar from './Nav';
 import { setWithExpiration } from "./expirationLocalStorage";
 import 'bootstrap/dist/css/bootstrap.css';
 
+/** App: App is the container component for all of the fishFile API calls being
+ *  made in the application. It also creates a token in local storage. App 
+ *  returns usercontext and the Navbar and appRoutes components 
+ * 
+ *  State: currentUser, token, isLoading 
+ * 
+ * */
 
 function App() {
   const [ currentUser, setCurrentUser ] = useState();
@@ -121,8 +128,6 @@ function App() {
   }
 
   async function addRecord(recordData) {
-    console.log("HERES THE DATE: ", recordData.date);
-
     // find location to access usgsId property
     const location = await FishFileApi.getLocation(recordData.locationId, currentUser.username);
 

@@ -8,15 +8,15 @@ import { useNavigate } from "react-router-dom";
 /** AddRecordForm: Add Record page that presents form that takes in all
  *  needed information to create a new record instance in our database.
  *
- *  State: AddRecordInfo, formError
- *  Context: AddRecord
+ *  State: formData, formError, locations
+ *  Context: currentUser, addRecord, getAllLocations
  */
 
 function AddRecordForm() {
   const { currentUser, addRecord, getAllLocations } = useContext(UserContext);
-  const [ locations, setLocations ] = useState([]);
-  const [ formError, setFormError ] = useState(null);
-  const [ formData, setFormData ] = useState({
+  const [locations, setLocations] = useState([]);
+  const [formError, setFormError] = useState(null);
+  const [formData, setFormData] = useState({
     username: currentUser.username,
     locationId: "",
     date: "",
@@ -43,6 +43,7 @@ function AddRecordForm() {
     [currentUser.username, getAllLocations]
   )
 
+  // Handles changes to form on keystroke
   function handleChange(evt) {
     const { name, value } = evt.target;
     setFormData((fData) => ({
@@ -66,7 +67,7 @@ function AddRecordForm() {
     <div className="AddRecordForm">
       <div className="card record-form-card">
         <form className="record-form" onSubmit={handleSubmit}>
-          <legend className="form-title mb-4">Add Record</legend> 
+          <legend className="form-title mb-4">Add Record</legend>
           {formError !== null ?
             <Alert
               type="danger"
@@ -91,7 +92,9 @@ function AddRecordForm() {
                     <option key={location.id} value={location.id}>{location.name}</option>
                   ))}
                 </select>
-                <label className="form-floating-label" htmlFor="floatingLocation">Location</label>
+                <label className="form-floating-label" htmlFor="floatingLocation">
+                  Location
+                </label>
               </div>
             </div>
             <div className="col-3">
@@ -125,24 +128,26 @@ function AddRecordForm() {
                     <option key={index} value={num}>{num}</option>
                   ))}
                 </select>
-                <label className="form-floating-label" htmlFor="floatingRating">Rating</label>
+                <label className="form-floating-label" htmlFor="floatingRating">
+                  Rating
+                </label>
               </div>
             </div>
           </div>
-
           <div className="form-floating mb-4">
-            <textarea 
+            <textarea
               id="floatingDescription"
               name="description"
               className="form-control"
               // placeholder="description"
               onChange={handleChange}
-              value={formData.description} 
-              style={{height: "100px"}}>
+              value={formData.description}
+              style={{ height: "100px" }}>
             </textarea>
-            <label htmlFor="floatingDescription" className="form-label">Description</label>
-          </div>             
-
+            <label htmlFor="floatingDescription" className="form-label">
+              Description
+            </label>
+          </div>
           <div className="form-floating mb-4">
             <input
               id="floatingFlies"
@@ -154,11 +159,12 @@ function AddRecordForm() {
               aria-describedby="fliesHelpBlock"
             />
             <div id="fliesHelpBlock" className="form-text m-2">
-              List flies that worked well for the day. You must separate flies with a comma and space like so: Sculpzilla, Olive WD-40, Parachute Adams
+              List flies that worked well for the day. You must separate flies
+              with a comma and space like so:
+              Sculpzilla, Olive WD-40, Parachute Adams
             </div>
             <label htmlFor="floatingFlies">Flies</label>
           </div>
-
           <div className="row mb-3">
             <div className="col-3">
               <div className="form-floating">
@@ -189,11 +195,12 @@ function AddRecordForm() {
                     <option key={index} value={weather}>{weather}</option>
                   ))}
                 </select>
-                <label className="form-floating-label" htmlFor="floatingWeather">Weather</label>
+                <label className="form-floating-label" htmlFor="floatingWeather">
+                  Weather
+                </label>
               </div>
             </div>
           </div>
-
           <div className="row mb-2">
             <div className="col-3">
               <div className="form-floating">

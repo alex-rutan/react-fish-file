@@ -1,3 +1,5 @@
+/** Sets an item in localStorage with an expiration time that can 
+ *  be checked upon getting said item */
 
 function setWithExpiration(key, value, ttl) {
   const now = new Date()
@@ -10,6 +12,9 @@ function setWithExpiration(key, value, ttl) {
   localStorage.setItem(key, JSON.stringify(item))
 }
 
+
+/** Gets an item in localStorage with an expiration time that can 
+ *  be checked. Returns null if expired. */
 
 function getWithExpiration(key) {
   const itemStr = localStorage.getItem(key)

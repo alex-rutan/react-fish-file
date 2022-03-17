@@ -11,14 +11,19 @@ import SignUpForm from "./SignUpForm";
 import LoginForm from "./LoginForm";
 
 
+/** AppRoutes: Routes component that house all the application routes
+ * 
+ *  Context: currentUser
+ */
+
 function AppRoutes() {
   const { currentUser } = useContext(UserContext);
- 
+
   return (
     <div className="AppRoutes">
       {currentUser ?
         <Routes>
-          <Route path="/locations" element={<LocationList onlyShowFavorites={false} />}/>
+          <Route path="/locations" element={<LocationList onlyShowFavorites={false} />} />
           <Route path="/locations/:location_id" element={<LocationDetails />} />
           <Route path="/locations/new" element={<AddLocationForm />} />
           <Route path="/records" element={<RecordList />} />

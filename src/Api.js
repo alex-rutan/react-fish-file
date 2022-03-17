@@ -7,7 +7,6 @@ const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:3001";
 /** API Class.
  *
  * Static class tying together methods used to get/send to to the Back-end API.
- *
  */
 
 class FishFileApi {
@@ -47,25 +46,29 @@ class FishFileApi {
 
   /** Get weather for a location */
   static async getLocationWeather(id, username, coordinates) {
-    const res = await this.request(`users/${username}/locations/${id}/weather`, coordinates);
+    const res = await this.request(`users/${username}/locations/${id}/weather`,
+      coordinates);
     return res.weather;
   }
 
   /** Get all locations data. */
   static async getAllLocations(username, onlyShowFavorites) {
-    const res = await this.request(`users/${username}/locations`, onlyShowFavorites);
+    const res = await this.request(`users/${username}/locations`,
+      onlyShowFavorites);
     return res.locations;
   }
 
   /** Add location to user's locations */
   static async addLocation(locationData, username) {
-    const res = await this.request(`users/${username}/locations`, locationData, "post");
+    const res = await this.request(`users/${username}/locations`,
+      locationData, "post");
     return res.location;
   }
 
   /** Update location */
   static async updateLocation(id, locationData, username) {
-    const res = await this.request(`users/${username}/locations/${id}`, locationData, "patch");
+    const res = await this.request(`users/${username}/locations/${id}`,
+      locationData, "patch");
     return res.location;
   }
 
@@ -83,7 +86,8 @@ class FishFileApi {
 
   /** Add record to user's records */
   static async addRecord(recordData, username) {
-    const res = await this.request(`users/${username}/records`, recordData, "post");
+    const res = await this.request(`users/${username}/records`,
+      recordData, "post");
     return res.record;
   }
 
@@ -110,7 +114,8 @@ class FishFileApi {
   /** Updates user data. */
   static async updateProfile(profileInfo) {
     const { username } = jwt.decode(this.token)
-    const res = await this.request(`users/${username}`, profileInfo, "patch")
+    const res = await this.request(`users/${username}`,
+      profileInfo, "patch")
     return res.user;
   }
 }
