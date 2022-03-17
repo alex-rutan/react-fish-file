@@ -88,14 +88,15 @@ function App() {
     const weather = await FishFileApi.getLocationWeather(locationId, username, coordinates);
     console.log("THIS IS THE WEATHER OBJECT IN REACT APP: ", weather);
 
-    // sets a location's weather into localStorage with a 30 minutes expiration
+    // sets a location's weather into localStorage with a 30 minute expiration
     setWithExpiration(`location-${locationId}-weather`, weather, 1800000);
 
     return weather;
   }
 
-  async function getAllLocations(username) {
-    const locations = await FishFileApi.getAllLocations(username);
+  async function getAllLocations(username, onlyShowFavorites) {
+    onlyShowFavorites = { onlyShowFavorites };
+    const locations = await FishFileApi.getAllLocations(username, onlyShowFavorites);
     return locations;
   }
   

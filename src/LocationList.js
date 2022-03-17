@@ -3,19 +3,20 @@ import UserContext from "./UserContext";
 import LocationCard from "./LocationCard";
 import "./LocationList.css";
 
-function LocationList() {
+function LocationList({ onlyShowFavorites }) {
   const { currentUser, getAllLocations } = useContext(UserContext);
   const [ locationList, setLocationList ] = useState([]);
 
   useEffect(
     function getLocations() {
       async function getLocationsResponse() {
-        const locations = await getAllLocations(currentUser.username);
+        const locations = await getAllLocations(currentUser.username, onlyShowFavorites);
+
         setLocationList(locations);
       }
       getLocationsResponse();
     },
-    [currentUser.username, getAllLocations]
+    [currentUser.username, getAllLocations, onlyShowFavorites]
   )
 
   return (

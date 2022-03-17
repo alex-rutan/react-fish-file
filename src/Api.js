@@ -52,8 +52,8 @@ class FishFileApi {
   }
 
   /** Get all locations data. */
-  static async getAllLocations(username) {
-    const res = await this.request(`users/${username}/locations`);
+  static async getAllLocations(username, onlyShowFavorites) {
+    const res = await this.request(`users/${username}/locations`, onlyShowFavorites);
     return res.locations;
   }
 

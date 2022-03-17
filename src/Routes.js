@@ -18,14 +18,14 @@ function AppRoutes() {
     <div className="AppRoutes">
       {currentUser ?
         <Routes>
-          <Route path="/locations" element={<LocationList />}/>
+          <Route path="/locations" element={<LocationList onlyShowFavorites={false} />}/>
           <Route path="/locations/:location_id" element={<LocationDetails />} />
           <Route path="/locations/new" element={<AddLocationForm />} />
           <Route path="/records" element={<RecordList />} />
           <Route path="/records/new" element={<AddRecordForm />} />
           {/* <Route path="/profile" element={<EditProfileForm />} /> */}
           <Route path="/" element={<HomePage />} />
-          <Route element={<Navigate replace to="/" />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
         : <Routes>
           <Route path="/login" element={<LoginForm />} />
