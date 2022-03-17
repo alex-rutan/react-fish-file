@@ -63,6 +63,12 @@ class FishFileApi {
     return res.location;
   }
 
+  /** Update location */
+  static async updateLocation(id, locationData, username) {
+    const res = await this.request(`users/${username}/locations/${id}`, locationData, "patch");
+    return res.location;
+  }
+
   /** Get record data by id. */
   static async getRecord(id, username) {
     const res = await this.request(`users/${username}/records/${id}`);

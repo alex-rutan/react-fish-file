@@ -107,7 +107,7 @@ function AddLocationForm() {
           </div>
           <div className="form-check form-switch mb-4">
             <input className="form-check-input" type="checkbox" id="flexSwitchCheckDefault"/>
-              <label className="form-check-label" for="flexSwitchCheckDefault">Add location as a favorite? (favorite locations show up on home screen)</label>
+              <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Add location as a favorite? (favorite locations show up on home screen)</label>
           </div>
           <button type="submit" className="btn btn-primary">Add Location</button>
         </form>

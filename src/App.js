@@ -111,6 +111,10 @@ function App() {
     await FishFileApi.addLocation(locationData, currentUser.username);
   }
 
+  async function updateLocation(id, locationData) {
+    await FishFileApi.updateLocation(id, locationData, currentUser.username);
+  }
+
   async function getAllRecords(username) {
     const records = await FishFileApi.getAllRecords(username);
     return records;
@@ -158,6 +162,7 @@ function App() {
         getLocationRecords,
         getLocationWeather,
         getAllLocations,
+        updateLocation,
         addRecord,
         getAllRecords
       }}>

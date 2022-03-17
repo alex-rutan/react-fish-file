@@ -11,6 +11,7 @@ function LocationList({ onlyShowFavorites }) {
     function getLocations() {
       async function getLocationsResponse() {
         const locations = await getAllLocations(currentUser.username, onlyShowFavorites);
+        console.log("LOCATION LIST *********** LOCATIONS HERE:", locations);
 
         setLocationList(locations);
       }

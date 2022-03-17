@@ -10,10 +10,11 @@ import { faWind, faUmbrella, faGaugeHigh, faWater } from '@fortawesome/free-soli
 
 
 function LocationDetails() {
-  const { currentUser, getLocationRecords } = useContext(UserContext);
-  const [ locationRecords, setLocationRecords ] = useState([]);
+  const { currentUser, getLocationRecords, updateLocation } = useContext(UserContext);
   const location = useLocation();
   const { currLocation, weather, currFlow } = location.state;
+  const [ locationRecords, setLocationRecords ] = useState([]);
+  const [ favoriteToggle, setFavoriteToggle ] = useState(currLocation.favorite);
 
   useEffect(
     function getAllLocationRecords() {
@@ -26,16 +27,27 @@ function LocationDetails() {
     [currentUser.username, currLocation.id, getLocationRecords]
   )
 
+  async function handleFavorite() {
+    let newFavoriteToggle = !favoriteToggle;
+    await updateLocation(currLocation.id, { favorite: newFavoriteToggle });
+    setFavoriteToggle(newFavoriteToggle);
+  }
+
   return (
     <div className="LocationDetails">
       <div className="location-details-titles-container">
-        <h3 className="location-details-title">{currLocation.name}</h3>
+        <h3 className="location-details-title">{currLocation.name}
+        {favoriteToggle === false
+        ?
+        <span className="favorite-button"><button type="button" className="btn btn-primary btn-sm" onClick={handleFavorite}>Add to Favorites</button></span>
+        :
+        <span className="favorite-button"><button type="button" className="btn btn-primary btn-sm" onClick={handleFavorite}>Remove from Favorites</button></span>
+        }
+        </h3>
         <h6 className="location-details-subtitle">USGS ID: {currLocation.usgsId}</h6>
       </div>
-
       <div className="cards-container">
-
-        <div className="curr-weather-column col-3">
+        <div className="curr-weather-column col-xl-3 col-lg-12">
           <div className="card current-weather-card">
             <div className="weather-titles-container">
               <h5 className="card-title pt-2">Current Conditions</h5>
@@ -46,11 +58,11 @@ function LocationDetails() {
                   <img className="weather-icon-img" src={`/tomorrowApiWeatherIcons/${weather.current.currWeatherCode}.png`} alt="Current Weather Icon"></img>
                   <p className="mt-2 mb-3"><small>{WeatherCodes[weather.current.currWeatherCode]}</small></p>
                 </div>
-                <div className="row temps-container">
-                  <div className="col-7 curr-temp-container">
+                <div className="row location-details-temps-container">
+                  <div className="col-xl-7 col-lg-6 location-details-curr-temp-container">
                     <h1>{weather.current.currTemp}°</h1>
                   </div>
-                  <div className="high-low-temps-container col-5">
+                  <div className="col-xl-5 col-lg-6 location-details-high-low-temps-container">
                     <p className="high-temp"><small>H {weather.current.highTemp}°</small></p>
                     <p className="low-temp"><small>L {weather.current.lowTemp}°</small></p>
                   </div>
@@ -82,8 +94,7 @@ function LocationDetails() {
               </div>
             </div>
           </div>
-        </div> 
-
+        </div>
         <div className="flow-column col-7">
           <div className="card flow-card">
             <div className="flow-titles-container">
@@ -94,13 +105,11 @@ function LocationDetails() {
             </div>
           </div>
         </div>
-
         <div className="forecast-weather-column col-10">
           <div className="card forecast-weather-card">
             <div className="weather-titles-container">
               <h5 className="card-title pt-2">Weather Forecast</h5>
             </div>
-
             <div className="card-body">
               <ul className="location-forecast-list-group list-group  list-group-flush">
                 {weather.forecast.map((day, index) => (
@@ -151,28 +160,25 @@ function LocationDetails() {
             </div>
           </div>
         </div>
-
       </div>
-
       <div className="location-records-container">
         {
-        currLocation.records.length
-        ?
-        <div>
-          <div className="location-details-titles-container">
-            <h4 className="location-details-title">Records</h4>
-          </div>
-          <div className="location-record-cards-container">
-            {locationRecords.map(record => (
-              <RecordCard key={record.id} record={record} />
-            ))}
-          </div>
-        </div>
-        :
-        null
-        }      
-      </div>        
-      
+          currLocation.records.length
+            ?
+            <div>
+              <div className="location-details-titles-container">
+                <h4 className="location-details-title">Records</h4>
+              </div>
+              <div className="location-record-cards-container">
+                {locationRecords.map(record => (
+                  <RecordCard key={record.id} record={record} />
+                ))}
+              </div>
+            </div>
+            :
+            null
+        }
+      </div>
     </div>
   )
 }

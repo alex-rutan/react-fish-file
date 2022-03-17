@@ -2,6 +2,10 @@
   margin: 2em 5em 1em 5em;
 }
 
+.favorite-button {
+  margin-left: 1.5em;
+}
+
 .location-details-subtitle {
   color: rgb(88, 88, 88)
 }
@@ -9,7 +13,7 @@
 .cards-container, .location-record-cards-container {
   display: flex;
   flex-wrap: wrap;
-  margin: 0em 4em 2em 4em;
+  margin: 0em 3em 2em 3em;
   justify-content: center;
 }
 
@@ -22,6 +26,22 @@
 
 .weather-top {
   margin-bottom: 2em;
+}
+
+.location-details-temps-container {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.location-details-curr-temp-container {
+  text-align: end;
+}
+
+.location-details-high-low-temps-container {
+  min-width: 25px;
+  padding-top: .6em;
+  text-align: start;
 }
 
 .location-details-list-group li {
@@ -53,7 +73,6 @@
 
 .location-forecast-list-group-item div {
   width: 90px;
-  /* border: 1px solid black; */
   text-align: center;
 }
 
